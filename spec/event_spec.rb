@@ -86,21 +86,22 @@ RSpec.describe Event do
     end
   end
 
-  # describe '#overstocked_items' do
-  #   it 'returns an empty array if no items are overstocked' do
-  #     expect(@event.overstocked_items).to eq []
-  #   end
-  #
-  #   it 'returns an array of items sold by >1 food truck where total quantity >50' do
-  #     @food_truck1.stock(@item1, 35)
-  #     @food_truck3.stock(@item1, 65)
-  #     @event.add_food_truck(@food_truck1)
-  #     @event.add_food_truck(@food_truck3)
-  #     expect(@event.overstocked_items).to eq [@item1]
-  #   end
-  # end
+  describe '#overstocked_items' do
+    it 'returns an empty array if no items are overstocked' do
+      expect(@event.overstocked_items).to eq []
+    end
+
+    it 'returns an array of items sold by >1 food truck where total quantity >50' do
+      @food_truck1.stock(@item1, 35)
+      @food_truck3.stock(@item1, 65)
+      @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck3)
+      expect(@event.overstocked_items).to eq [@item1]
+    end
+  end
 
   describe '#sorted_item_list' do
+    # Add this test later if time permits
     # it 'returns an empty array if there are no items' do
     #   expect(@event.sorted_item_list).to eq []
     # end
@@ -125,4 +126,37 @@ RSpec.describe Event do
       expect(@event.sorted_item_list).to eq expected_output
     end
   end
+
+  # describe '#total_inventory' do
+  #   it 'returns a hash where items are keys, and values are a hash of quantity and food trucks selling the item' do
+  #     @food_truck1.stock(@item1, 35)
+  #     @food_truck1.stock(@item2, 7)
+  #     @food_truck2.stock(@item4, 50)
+  #     @food_truck2.stock(@item3, 25)
+  #     @food_truck3.stock(@item1, 65)
+  #     @food_truck3.stock(@item3, 10)
+  #     @event.add_food_truck(@food_truck1)
+  #     @event.add_food_truck(@food_truck2)
+  #     @event.add_food_truck(@food_truck3)
+  #     expected_output = {
+  #       @item1 => {
+  #         quantity: 100,
+  #         food_trucks: [@food_truck1, @food_truck3]
+  #       },
+  #       @item2 => {
+  #         quantity: 7,
+  #         food_trucks: [@food_truck1]
+  #       },
+  #       @item4 => {
+  #         quantity: 50,
+  #         food_trucks: [@food_truck2]
+  #       },
+  #       @item3 => {
+  #         quantity: 35,
+  #         food_truck: [@food_truck2, @food_truck3]
+  #       }
+  #     }
+  #     expect(@event.total_inventory).to eq expected_output
+  #   end
+  # end
 end
