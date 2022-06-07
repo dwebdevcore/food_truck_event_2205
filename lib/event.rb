@@ -15,6 +15,7 @@ class Event
   end
 
   def food_trucks_that_sell(item)
+    trucks = []
     trucks = @food_trucks.find_all do |truck|
       truck.check_stock(item) != 0
     end
