@@ -22,7 +22,6 @@ class Event
   end
 
   # def overstocked_items
-  #   overstocked = []
   #
   # end
 
@@ -34,5 +33,22 @@ class Event
       end
     end
     items.sort.uniq!
+  end
+
+  def total_inventory
+    items_hash = {}
+    @food_trucks.each do |truck|
+      truck.inventory.each do |item, quantity|
+        if items_hash.keys.include?(item)
+          items_hash[item][:quantity] += quantity
+        else
+          items_hash[item]= {
+            quantity: quantity,
+            food_trucks: food_trucks_that_sell(item)
+          }
+        end
+      end
+    end
+    items_hash
   end
 end
