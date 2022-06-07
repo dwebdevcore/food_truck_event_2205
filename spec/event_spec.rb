@@ -71,4 +71,14 @@ RSpec.describe Event do
       expect(@event.food_truck_names).to eq expected_output
     end
   end
+
+  describe '#food_trucks_that_sell' do
+    it 'returns an array of FoodTrucks that sell an item (it is in inventory)' do
+      @food_truck1.stock(@item1, 35)
+      @food_truck3.stock(@item1, 65)
+      @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck3)
+      expect(@event.food_trucks_that_sell(@item1)).to eq [@food_truck1, @food_truck3]
+    end
+  end
 end
