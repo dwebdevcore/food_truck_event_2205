@@ -73,6 +73,10 @@ RSpec.describe Event do
   end
 
   describe '#food_trucks_that_sell' do
+    it 'returns an empty array if no FoodTrucks sell an item' do
+      expect(@event.food_trucks_that_sell('pickles')).to eq []
+    end
+
     it 'returns an array of FoodTrucks that sell an item (it is in inventory)' do
       @food_truck1.stock(@item1, 35)
       @food_truck3.stock(@item1, 65)
