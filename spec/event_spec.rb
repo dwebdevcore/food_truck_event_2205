@@ -86,21 +86,11 @@ RSpec.describe Event do
     end
   end
 
-  # describe '#overstocked_items' do
-  #   # it 'returns an empty array if no items are overstocked' do
-  #   #   expect(@event.overstocked_items).to eq []
-  #   # end
-  #
-  #   it 'returns an array of items sold by >1 food truck where total quantity >50' do
-  #     @food_truck1.stock(@item1, 35)
-  #     @food_truck3.stock(@item1, 65)
-  #     @event.add_food_truck(@food_truck1)
-  #     @event.add_food_truck(@food_truck3)
-  #     expect(@event.overstocked_items).to eq [@item1]
-  #   end
-  # end
-
   describe '#sorted_item_list' do
+    it 'returns an empty array if there are no items sold' do
+      expect(@event.sorted_item_list).to eq []
+    end
+
     it 'returns an array of items sold sorted alphabetically' do
       @food_truck3.stock(@item1, 65)
       @food_truck3.stock(@item3, 10)
@@ -125,9 +115,7 @@ RSpec.describe Event do
   describe '#total_inventory' do
     it 'returns a hash where items are keys, and values are a hash of quantity and food trucks selling the item' do
       @food_truck1.stock(@item1, 35)
-
       @event.add_food_truck(@food_truck1)
-
       expected_output = {
         @item1 => {
           quantity: 35,
@@ -135,9 +123,9 @@ RSpec.describe Event do
         }
       }
       expect(@event.total_inventory).to eq expected_output
+
       @food_truck2.stock(@item2, 25)
       @event.add_food_truck(@food_truck2)
-
       expected_output = {
         @item1 => {
           quantity: 35,
@@ -152,7 +140,6 @@ RSpec.describe Event do
 
       @food_truck3.stock(@item1, 10)
       @event.add_food_truck(@food_truck3)
-
       expected_output = {
         @item1 => {
           quantity: 45,
@@ -163,8 +150,21 @@ RSpec.describe Event do
           food_trucks: [@food_truck2]
         }
       }
-
       expect(@event.total_inventory).to eq expected_output
+    end
+  end
+
+  describe '#overstocked_items' do
+    it 'returns an empty array if no items are overstocked' do
+      expect(@event.overstocked_items).to eq []
+    end
+
+    it 'returns an array of items sold by >1 food truck where total quantity >50' do
+      @food_truck1.stock(@item1, 35)
+      @food_truck3.stock(@item1, 65)
+      @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck3)
+      expect(@event.overstocked_items).to eq [@item1]
     end
   end
 end
