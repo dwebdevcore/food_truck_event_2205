@@ -23,5 +23,20 @@ RSpec.describe FoodTruck do
     it 'returns 0 if there is no stock of an item' do
       expect(@food_truck.check_stock(@item1)).to eq 0
     end
+
+    it 'returns quantity if there is stock of an item' do
+      expect(@food_truck.check_stock(@item1)).to eq 0
+      @food_truck.stock(@item1, 30)
+      expect(@food_truck.check_stock(@item1)).to eq 30
+    end
+  end
+
+  describe '#stock' do
+    it 'can add stock to the inventory hash' do
+      expect(@food_truck.check_stock(@item1)).to eq 0
+      @food_truck.stock(@item1, 30)
+      expected_output = {@item_1 => 30}
+      expect(@food_truck.inventory).to eq (expected_output)
+    end
   end
 end
