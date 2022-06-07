@@ -86,17 +86,43 @@ RSpec.describe Event do
     end
   end
 
-  describe '#overstocked_items' do
-    it 'returns an empty array if no items are overstocked' do
-      expect(@event.overstocked_items).to eq []
-    end
+  # describe '#overstocked_items' do
+  #   it 'returns an empty array if no items are overstocked' do
+  #     expect(@event.overstocked_items).to eq []
+  #   end
+  #
+  #   it 'returns an array of items sold by >1 food truck where total quantity >50' do
+  #     @food_truck1.stock(@item1, 35)
+  #     @food_truck3.stock(@item1, 65)
+  #     @event.add_food_truck(@food_truck1)
+  #     @event.add_food_truck(@food_truck3)
+  #     expect(@event.overstocked_items).to eq [@item1]
+  #   end
+  # end
 
-    it 'returns an array of items sold by >1 food truck where total quantity >50' do
-      @food_truck1.stock(@item1, 35)
+  describe '#sorted_item_list' do
+    # it 'returns an empty array if there are no items' do
+    #   expect(@event.sorted_item_list).to eq []
+    # end
+
+    it 'returns an array of items sold sorted alphabetically' do
       @food_truck3.stock(@item1, 65)
+      @food_truck3.stock(@item3, 10)
+      @food_truck2.stock(@item4, 50)
+      @food_truck2.stock(@item3, 25)
+      @food_truck1.stock(@item1, 35)
+      @food_truck1.stock(@item2, 7)
       @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck2)
       @event.add_food_truck(@food_truck3)
-      expect(@event.overstocked_items).to eq [@item1]
+      expected_output =
+      [
+        "Apple Pie (Slice)",
+        "Banana Nice Cream",
+        "Peach Pie (Slice)",
+        "Peach-Raspberry Nice Cream"
+      ]
+      expect(@event.sorted_item_list).to eq expected_output
     end
   end
 end
