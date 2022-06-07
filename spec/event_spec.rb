@@ -46,6 +46,10 @@ RSpec.describe Event do
     it 'has an empty array of FoodTrucks' do
       expect(@event.food_trucks).to eq []
     end
+
+    it 'returns the date that an Event was created' do
+      expect(@event.date).to eq Date.today
+    end
   end
 
   describe '#add_food_truck' do
