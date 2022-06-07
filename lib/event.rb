@@ -73,6 +73,8 @@ class Event
     end
     overstocked
 
+    # was trying to see if I could get this to work but wasn't working. could have been my tests were still messed up from earlier when I tried it.
+    
     # items_hash.keys.find_all do |item|
     #   (items_hash[item][:quantity] > 50) && (items_hash[item][:food_trucks].count > 1)
     # end
