@@ -48,7 +48,7 @@ RSpec.describe Event do
     end
 
     it 'returns the date that an Event was created' do
-      expect(@event.date).to eq Date.today
+      expect(@event.date).to eq "07/06/2022"
     end
   end
 

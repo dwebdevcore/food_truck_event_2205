@@ -6,7 +6,13 @@ class Event
   def initialize(name)
     @name = name
     @food_trucks = []
-    @date = Date.today
+
+    #Probably a much better way to format this but this is what you all get :)
+    unformatted_date = Date.today.to_s
+    day = unformatted_date[-2..-1]
+    month = unformatted_date[-5..-4]
+    year = unformatted_date[0..-7]
+    @date = "#{day}/#{month}/#{year}"
   end
 
   def add_food_truck(food_truck)
@@ -65,5 +71,10 @@ class Event
         overstocked << item
       end
     end
+    overstocked
+
+    # items_hash.keys.find_all do |item|
+    #   (items_hash[item][:quantity] > 50) && (items_hash[item][:food_trucks].count > 1)
+    # end
   end
 end
