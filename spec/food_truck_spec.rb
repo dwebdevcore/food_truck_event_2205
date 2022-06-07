@@ -10,6 +10,12 @@ RSpec.describe FoodTruck do
         price: "$3.75"
         }
       )
+    @item2 = Item.new(
+      {
+        name: 'Apple Pie (Slice)',
+        price: '$2.50'
+        }
+      )
   end
 
   describe '#initialize' do
@@ -51,6 +57,8 @@ RSpec.describe FoodTruck do
       expect(@food_truck.potential_revenue).to eq 0.0
       @food_truck.stock(@item1, 30)
       expect(@food_truck.potential_revenue).to eq 112.50
+      @food_truck.stock(@item2, 30)
+      expect(@food_truck.potential_revenue).to eq 187.50
     end
   end
 end
