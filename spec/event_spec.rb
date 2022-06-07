@@ -85,4 +85,18 @@ RSpec.describe Event do
       expect(@event.food_trucks_that_sell(@item1)).to eq [@food_truck1, @food_truck3]
     end
   end
+
+  describe '#overstocked_items' do
+    it 'returns an empty array if no items are overstocked' do
+      expect(@event.overstocked_items).to eq []
+    end
+
+    it 'returns an array of items sold by >1 food truck where total quantity >50' do
+      @food_truck1.stock(@item1, 35)
+      @food_truck3.stock(@item1, 65)
+      @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck3)
+      expect(@event.overstocked_items).to eq [@item1]
+    end
+  end
 end

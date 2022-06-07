@@ -20,4 +20,8 @@ class Event
       truck.check_stock(item) != 0
     end
   end
+
+  def overstocked_items
+    overstocked = []
+  end
 end
