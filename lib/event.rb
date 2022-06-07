@@ -21,10 +21,6 @@ class Event
     end
   end
 
-  # def overstocked_items
-  #
-  # end
-
   def sorted_item_list
     items = []
     @food_trucks.each do |truck|
@@ -32,7 +28,13 @@ class Event
         items << item.name
       end
     end
-    items.sort.uniq!
+
+    #adding to clean up output / test
+    if items.count > 0
+      items.sort.uniq
+    else
+      items
+    end
   end
 
   def total_inventory
@@ -50,5 +52,15 @@ class Event
       end
     end
     items_hash
+  end
+
+  def overstocked_items
+    items_hash = total_inventory
+    overstocked = []
+    items_hash.keys.each do |item|
+      if (items_hash[item][:quantity] > 50) && (items_hash[item][:food_trucks].count > 1)
+        overstocked << item
+      end
+    end
   end
 end
