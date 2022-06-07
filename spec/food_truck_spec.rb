@@ -1,8 +1,15 @@
 require './lib/food_truck'
+require './lib/item'
 
 RSpec.describe FoodTruck do
   before :each do
     @food_truck = FoodTruck.new("Rocky Mountain Pies")
+    @item1 = Item.new(
+      {
+        name: 'Peach Pie (Slice)',
+        price: "$3.75"
+        }
+      )
   end
 
   describe '#initialize' do
@@ -35,8 +42,15 @@ RSpec.describe FoodTruck do
     it 'can add stock to the inventory hash' do
       expect(@food_truck.check_stock(@item1)).to eq 0
       @food_truck.stock(@item1, 30)
-      expected_output = {@item_1 => 30}
-      expect(@food_truck.inventory).to eq (expected_output)
+      expect(@food_truck.inventory).to eq ({@item1 => 30})
     end
   end
+
+  # describe '#potential_revenue' do
+  #   it 'returns potential revenue for a truck' do
+  #     expect(@food_truck.potential_revenue).to eq 0.0
+  #     @food_truck.stock(@item1, 30)
+  #     expect(@food_truck.potential_revenue).to eq
+  #   end
+  # end
 end
