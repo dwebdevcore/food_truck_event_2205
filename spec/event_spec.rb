@@ -57,4 +57,18 @@ RSpec.describe Event do
       expect(@event.food_trucks).to eq [@food_truck1, @food_truck2, @food_truck3]
     end
   end
+
+  describe '#food_truck_names' do
+    it 'can return an array of strings of truck names' do
+      @event.add_food_truck(@food_truck1)
+      @event.add_food_truck(@food_truck2)
+      @event.add_food_truck(@food_truck3)
+      expected_output = [
+        @food_truck1.name,
+        @food_truck2.name,
+        @food_truck3.name
+      ]
+      expect(@event.food_truck_names).to eq expected_output
+    end
+  end
 end
